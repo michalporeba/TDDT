@@ -1,5 +1,7 @@
 Clear-Host
+
 $script:check = 0
+$path = "C:\TDDT\HelloWorld"
 
 function Write-Error {
     [CmdletBinding()]
@@ -78,6 +80,47 @@ $templates = (& dotnet new --list)
 if (($templates -like "*NUnit 3 Test Project*").Count -ne 1) {
     Write-Error "NUnit templates are not installed"
     Write-NextStep "Install NUnit templates" -Command "dotnet new -i NUnit3.DotNetNew.Template"
+} else {
+    Write-Success "NUnit 3 templates are installed"
+}
+
+
+$vscode = (Get-Command "code" -ErrorAction SilentlyContinue)
+if ($vscode -eq $null) {
+    Write-Error "Visual Studio Code is not installed"
+    Write-NextStep "Install Visual Studio Code from (https://code.visualstudio.com/)"
+    return 
+} else {
+    $vscodeversion = (& code --version) | Select -First 1
+    Write-Success "Visual Studio Code version $vscodeversion is isntalled"
+}
+
+
+$extensions = (& code --list-extensions)
+if (-Not ($extensions -like "*ms-vscode.csharp*")) {
+    Write-Error "Visual Studio Code C# extension is missing"
+    Write-NextStep "Install C# extension for Visual Studio Code" -Command "code --install-extension ms-vscode.csharp"
+    return 
+} else {
+    Write-Success "C# extension for Visual Studio Code is installed"
+}
+
+if (-Not ($extensions -like "*eamodio.gitlens*")) {
+    Write-Error "Visual Studio Code Gitlens extension is missing"
+    Write-NextStep "Install Gitlens extension for Visual Studio Code" -Command "code --install-extension eamodio.gitlens"
+    return 
+} else {
+    Write-Success "Gitlens extension for Visual Studio Code is installed"
+}
+
+Write-Step "Prepare the Workspace"
+
+
+if (-Not (Test-Path -Path $path -PathType Container)) {
+    Write-NextStep "Create folder $path" -Command "mkdir `"$path`""
+    return
+} else {
+    Write-Success "Folder $path exists"
 }
 
 Write-Host ""

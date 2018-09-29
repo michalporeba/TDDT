@@ -47,10 +47,27 @@ Follow the instructions on (https://code.visualstudio.com/) to download and inst
 
 After installation you will find `Visual Studio Code` in your start menu. 
 
+## 5. Visual Studio Code Extensions
+Although Visual Studio Code (VS Code) is useful on its own, it can use extensions which are developed and distributed independently. To make life easier through this lengthy hello world example install `C# (ms-vscode.csharp)` and `Gitlens (eamodio.gitlens)` extensions using the following commands: 
+
+```
+code --install-extension ms-vscode.csharp
+code --install-extension eamodio.gitlens
+```
+
+The C# extension will help you with [syntax highlighting](https://en.wikipedia.org/wiki/Syntax_highlighting) and [intellisense](https://en.wikipedia.org/wiki/Intelligent_code_completion) while Gitlens will help to use git repository. 
+
 # Hello World
 
 It is a long standing tradition to start learning of a new programming langauge with a `Hello World` application. The objectie is to write an application that will display a 'Hello World' message to the user. With modern tools like Visual Studio (not Code) it is possible to write such application with exactly 3 mouse clicks and no typing at all. But this doesn't teach much, it shows how to generate code that does something trivial without explaining why and how things work. It doesn't explain how to test a code either, a skill which is as important as coding itself. We will do it differently. It will take much longer, that's for sure, but hopefully it will allow you to understand what is happening, a good start to learning to write computer programs. To make most of the learning process don't be lazy, don't copy and past but instead type all the commands and code yourself. If you find any errors, try to solve the problem or ask for help online. 
 
+## 1. Create a folder for the solution
+Now that all the tools are ready we need to have a folder where the code will be written. 
+Create a folder `C:\TDDT\HelloWorld` 
+
+## 2. Initialize the repository
+
+Open the Visual Studio Code
 
 # Practice Makes Perfect 
 
