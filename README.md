@@ -32,7 +32,16 @@ $ dotnet --version
 2.1.402
 ```
 
-## 3. Visual Studio Code
+## 3. NUnit Templates
+[NUnit](https://en.wikipedia.org/wiki/NUnit) is a [unit testing](https://en.wikipedia.org/wiki/Unit_testing) framework we will use to make sure the code we are about to write does exactly what it is supposed to do. Unit testing is a very important part of software development which is often overlooked, definately at the beginning, it is often claimed that it is difficult and takes too much time. That can be true, especially when tests are added after the code has been written without following necessary patterns and practicies but when one starts with a test, in a [TDD](https://en.wikipedia.org/wiki/Test-driven_development) fashion, it soon becomes a second nature and allows to write better code fast. 
+
+Install NUnit templates by executing the following command in the Git Bash
+
+```
+dotnet new -i NUnit3.DotNetNew.Template
+```
+
+## 4. Visual Studio Code
 Install [VS Code](https://en.wikipedia.org/wiki/Visual_Studio_Code) which is the source code editor we will use to start developing simple applications.
 Follow the instructions on (https://code.visualstudio.com/) to download and install VS Code. 
 
