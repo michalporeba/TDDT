@@ -57,6 +57,9 @@ code --install-extension eamodio.gitlens
 
 The C# extension will help you with [syntax highlighting](https://en.wikipedia.org/wiki/Syntax_highlighting) and [intellisense](https://en.wikipedia.org/wiki/Intelligent_code_completion) while Gitlens will help to use git repository. 
 
+## 6. Getting to know VS Code 
+From now on most of the work you will do in VS Code so it is worth learning more about it. There is a good introductory [video](https://code.visualstudio.com/docs/introvideos/basics) on the official project website. There you will learn about the basic features but also where to find more information. VS Code will be your main tool for writing code for a while, so it is worth learning it well, but not necessarily all up-front. 
+
 # Hello World
 
 It is a long standing tradition to start learning of a new programming langauge with a `Hello World` application. The objectie is to write an application that will display a 'Hello World' message to the user. With modern tools like Visual Studio (not Code) it is possible to write such application with exactly 3 mouse clicks and no typing at all. But this doesn't teach much, it shows how to generate code that does something trivial without explaining why and how things work. It doesn't explain how to test a code either, a skill which is as important as coding itself. We will do it differently. It will take much longer, that's for sure, but hopefully it will allow you to understand what is happening, a good start to learning to write computer programs. To make most of the learning process don't be lazy, don't copy and past but instead type all the commands and code yourself. If you find any errors, try to solve the problem or ask for help online. 
