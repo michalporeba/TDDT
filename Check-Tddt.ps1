@@ -1,4 +1,4 @@
-cls
+Clear-Host
 $script:check = 0
 
 function Write-Error {
