@@ -7,16 +7,15 @@ So what is it that one has to learn to be able to program in 2018? There is a mi
 * The IDEs, repos and such - tools one uses to produce code
 * The programming languages - one is typically not enough
 * The standard frameworks and libraries - not to reinvent the wheel
-* The theory and the acronyms - SOLID, CAP, ACID, TDD and such. 
+* The theory and the acronyms - SOLID, CAP, ACID, TDD and such
 
 # Workstation setup - the Tools
 
 ## 1. Git
-Install [git](https://git-scm.com/about) from (https://git-scm.com/download/win)
-`Git` is a [source code repository](https://en.wikipedia.org/wiki/Version_control) which helps to manage code versions and collaborate with other developers. Althought it is not strictly required to write your first 'hello world' application, it will make the learning easier. As you save your progress regularily, if something goes wrong you will be able to go back to the last working version and start again from that point. Install using default settings. 
+Install [git](https://git-scm.com/about) from (https://git-scm.com/download/win). `Git` is a [source code repository](https://en.wikipedia.org/wiki/Version_control) which helps to manage code versions and collaborate with other developers. Althought it is not strictly required to write your first 'hello world' application, it will make the learning easier. As you save your progress regularily, if something goes wrong you will be able to go back to the last working version and start again from that point. Install using default settings. 
 
 After installation you should be able to find `Git Bash` in your start menu. When started it looks like the command prompt.
-Type in `git --version` followed by enter to see if git is installed. The result should be something like this
+Type in `git --version` followed by enter to see if git is installed. The result should be something like this:
 
 ```
 $ git --version
@@ -26,7 +25,7 @@ git version 2.19.0.windows.1
 ## 2. .NET Core SDK 
 Install [.NET Core SDK] from (https://www.microsoft.com/net/download?initial-os=windows). Click on `Download .NET Core SDK` and follow the instructions. [.NET Core](https://en.wikipedia.org/wiki/.NET_Core) is a [software framework](https://en.wikipedia.org/wiki/Software_framework) on which we will be building our software. [SDK](https://en.wikipedia.org/wiki/Software_development_kit) stands for Software Development Kit and is a set of tools used to help development of software. After installing the .NET Core SDK among many other things you will have the `dotnet` command which we will use a lot to create projects, to build, test and run the applications we are about to write. 
 
-Aftetr installation you should be able to open `Git Bash` again and type `dotnet --version` followed by enter. If everything went as expected you will see the current dotnet version. The output should be something like this
+Aftetr installation you should be able to open `Git Bash` again and type `dotnet --version` followed by enter. If everything went as expected you will see the current dotnet version. The output should be something like this:
 
 ```
 $ dotnet --version
