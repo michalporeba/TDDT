@@ -70,7 +70,11 @@ Create a folder `C:\TDDT\HelloWorld`
 
 ## 2. Initialize the repository
 
-Open the Visual Studio Code
+Open the `C:\TDDT\HelloWorld` folder in Code. You can find it in the start menu and then choose 'Open Folder' option. You can press `[Ctrl+K]``[Ctrl+O]` when in Code too. My favourite option is to type `code C:\TDDT\HelloWorld` in the command prompt.
+
+Once the folder has been opened, close the welcome message and press `[Ctrl+']` to toggle the terminal. Your Code should look more or less like so:
+![alt text](.\Images\HelloWorld.EmptyFolderInVsCode.png)
+
 
 # Practice Makes Perfect 
 
