@@ -1,7 +1,8 @@
 Clear-Host
 
 $script:check = 0
-$path = "C:\TDDT\HelloWorld"
+$project = "HelloWorld"
+$path = "C:\TDDT\$project"
 
 function Write-Error {
     [CmdletBinding()]
@@ -27,17 +28,20 @@ function Write-NextStep {
     [CmdletBinding()]
     param(
         [parameter(Position=0, Mandatory=$true)][string]$Message,
-        [parameter(Position=1, Mandatory=$false)][string]$Command
+        [parameter(Position=1, Mandatory=$false)][string[]]$Command
     )
     process{
         Write-Host ""
         Write-Host "Next Step: " -ForegroundColor DarkBlue
         Write-Host "$Message" -ForegroundColor DarkGray
         Write-Host ""
-        if ($Command -ne $null) {
+        if ($null -ne $Command) {
             Write-Host "Execute:" -ForegroundColor DarkBlue
-            Write-Host "> " -ForegroundColor DarkBlue -NoNewLine 
-            Write-Host "$Command" -ForegroundColor Blue
+
+            @($Command).ForEach{
+                Write-Host "> " -ForegroundColor DarkBlue -NoNewLine 
+                Write-Host "$psitem" -ForegroundColor Blue
+            }
             Write-Host ""
         }
     }
@@ -122,5 +126,56 @@ if (-Not (Test-Path -Path $path -PathType Container)) {
 } else {
     Write-Success "Folder $path exists"
 }
+
+if (-Not (Test-Path -Path "$path\.git" -PathType Container)) {
+    Write-NextStep "Initialize git repository in $path" -Command "cd `"$path`"","git init"
+    return
+} else {
+    Write-Success "There is a git repo in $path"
+}
+
+if (-Not (Test-Path -Path "$path\$project.sln")) {
+    Write-NextStep "Create solution in $path" -Command "dotnet new sln"
+    return
+} else {
+    Write-Success "The solution file `"$path\$project.sln`" exists"
+}
+
+if (-Not (Test-Path -Path "$path\$project.Tests\$project.Tests.csproj")) {
+    Write-NextStep "Create unit test project $project.Tests" -Command "dotnet new nunit -n $project.Tests"
+    return
+} else {
+    Write-Success "The unit test project `"$path\$project.Tests\$project.Tests.csproj`" exists"
+}
+
+if (-Not (Test-Path -Path "$path\$project\$project.csproj")) {
+    Write-NextStep "Create library project $project" -Command "dotnet new classlib -n $project"
+    return
+} else {
+    Write-Success "The library project `"$path\$project\$project.csproj`" exists"
+}
+
+if (-Not((Get-Content "$path\$project.Tests\$project.Tests.csproj") -like "*ProjectReference Include=`"..\HelloWorld\HelloWorld.csproj`"*")) {
+    Write-NextStep "Add reference in the unit test project to the library project" -Command "dotnet add $project.Tests reference $project"
+    return
+} else {
+    Write-Success "Test project has reference to the library project"
+}
+
+if (-Not((& dotnet sln $path list) -like "*HelloWorld.csproj*")) {
+    Write-NextStep "Add project HelloWorld to the solution" -Command "dotnet sln add HelloWorld"
+    return
+} else {
+    Write-Success "HelloWorld project is in the Solution"
+}
+
+if (-Not((& dotnet sln $path list) -like "*HelloWorld.Tests.csproj*")) {
+    Write-NextStep "Add project HelloWorld.Tests to the solution" -Command "dotnet sln add HelloWorld.Tests"
+    return
+} else {
+    Write-Success "HelloWorld.Tests project is in the Solution"
+}
+
+#dotnet new nunit -n HelloWorld.Tests
 
 Write-Host ""

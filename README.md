@@ -75,6 +75,46 @@ Open the `C:\TDDT\HelloWorld` folder in Code. You can find it in the start menu 
 Once the folder has been opened, close the welcome message and press `[Ctrl+']` to toggle the terminal. Your Code should look more or less like so:
 ![Hello World in VSCode](./Images/HelloWorld.EmptyFolderInVsCode.png)
 
+From now on you can type the commands directly in VSCode, in the terminal instead of Git Bash, but Git Bash will still work. 
+
+Next step is to create a git repository in the folder to let git know that we want it to version contents of that folder. To do so, make sure you are in the `C:\TDDT\HellowWorld` folder (the terminal prompt should be `PS C:\TDDT\HelloWorld>`). If you are not navigate to it by executing `cd C:\TDDT\HelloWorld` in the terminal. 
+
+Now initiate the repository using 
+
+```
+git init
+```
+
+and check if it worked using 
+
+```
+git status
+```
+
+## 3. Create solution and projects
+
+Next we will need to create a solution for the projects. Solution is a logical grouping of projects defined in a *.sln file and a project is a collection of files with code and other assets that get compiled into an executable or a library. It is an important part of the initial setup as we will be developing multiple projects at the same time. The easiest way to do so is using `dotnet` command. 
+
+Navigate to C:\Dev\TDDT in the terminal and execute
+
+```
+dotnet new sln
+```
+
+which creates HelloWorld.sln file, which is now visible in VS Code Explorer
+[HelloWorld.sln](C:\Dev\TDDT\Images\HelloWorld.SolutionFile.png)
+The 1 in the blue cricle on top of Source Control icon indicates that there are uncommitted changes in the git repo. Let's ignore it for now and carry on creating the projects. 
+
+```
+dotnet new nunit -n HelloWorld.Tests
+```
+
+```
+dotnet new classlib -n HelloWorld
+dotnet add HelloWorld.Tests reference HelloWorld
+dotnet sln add HelloWorld
+dotnet sln add HelloWorld.Tests
+```
 
 # Practice Makes Perfect 
 
