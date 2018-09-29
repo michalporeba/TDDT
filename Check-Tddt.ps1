@@ -57,7 +57,7 @@ Write-Step "Setup the Environment"
 
 
 $git = (Get-Command "git.exe" -ErrorAction SilentlyContinue)
-if ($git -eq $null) {
+if ($null -eq $git) {
     Write-Error "git is missing"
     Write-NextStep "Install git from (https://git-scm.com/downloads)"
     return
@@ -67,7 +67,7 @@ if ($git -eq $null) {
 
 
 $dotnet = (Get-Command "dotnet.exe" -ErrorAction SilentlyContinue)
-if ($dotnet -eq $null) {
+if ($null -eq $dotnet) {
     Write-Error ".NET Core SDK is missing"
     Write-NextStep "Install .NET Core SDK from (https://www.microsoft.com/net/download)"
     return 
@@ -86,12 +86,12 @@ if (($templates -like "*NUnit 3 Test Project*").Count -ne 1) {
 
 
 $vscode = (Get-Command "code" -ErrorAction SilentlyContinue)
-if ($vscode -eq $null) {
+if ($null -eq $vscode) {
     Write-Error "Visual Studio Code is not installed"
     Write-NextStep "Install Visual Studio Code from (https://code.visualstudio.com/)"
     return 
 } else {
-    $vscodeversion = (& code --version) | Select -First 1
+    $vscodeversion = (& code --version) | Select-Object -First 1
     Write-Success "Visual Studio Code version $vscodeversion is isntalled"
 }
 
