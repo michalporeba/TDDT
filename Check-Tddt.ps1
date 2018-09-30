@@ -177,6 +177,53 @@ if (-Not((& dotnet sln $path list) -like "*HelloWorld.Tests.csproj*")) {
     Write-Success "HelloWorld.Tests project is in the Solution"
 }
 
+
+if ((-Not (Test-Path -Path "$path\$project\bin" -PathType Container)) -Or (-Not (Test-Path -Path "$path\$project.Tests\bin" -PathType Container))) {
+    Write-NextStep "Build the solution" -Command "dotnet build"
+    return
+} else {
+    Write-Success "The solution has been built"
+}
+
+
+if (-Not (Test-Path -Path "$path\.gitignore")) {
+    Write-NextStep "Create $path\.gitignore file. You can add it using VSCode, or a command" -Command "'bin/','obj/' | Set-Content '.gitignore'"
+    return
+} else {
+    Write-Success ".gitignore file exists"
+}
+
+
+if (-Not((Get-Content "$path\.gitignore") -like "*bin/*")) {
+    Write-NextStep "Add bin/ to .gitignore"
+    return
+} else {
+    Write-Success ".gitignore containg bin/"
+}
+
+if (-Not((Get-Content "$path\.gitignore") -like "*obj/*")) {
+    Write-NextStep "Add obj/ to .gitignore"
+    return
+} else {
+    Write-Success ".gitignore containg obj/"
+}
+
+if (-Not (Test-Path -Path "$path\.vscode\settings.json")) {
+    Write-NextStep "Create $path\.vscode\settings.json file. "
+    return
+} else {
+    Write-Success ".vscode\settings.json exists"
+}
+
+$vscodesettings = (Get-Content "$path\.vscode\settings.json")
+if (-Not($vscodesettings -like "*bin/*")) {
+    Write-NextStep "Add bin/ to .gitignore"
+    return
+} else {
+    Write-Success ".gitignore containg bin/"
+}
+
+
 #dotnet new nunit -n HelloWorld.Tests
 
 Write-Host ""
