@@ -51,6 +51,7 @@ function Write-Step {
     [CmdletBinding()]
     param([parameter(Position=0, Mandatory=$true)][string]$Step)
     process{
+        $script:check = 0
         Write-Host ""
         Write-Host "[$Step]" -ForegroundColor DarkGray
     }
