@@ -10,7 +10,7 @@ Create a folder `C:\TDDT\HelloWorld`
 
 Open the `C:\TDDT\HelloWorld` folder in Code. You can find it in the start menu and then choose 'Open Folder' option. You can press `[Ctrl+K]`+`[Ctrl+O]` when in Code too. My favourite option is to type `code C:\TDDT\HelloWorld` in the command prompt.
 
-Once the folder has been opened, close the welcome message and press `[Ctrl+']` to toggle the terminal. Your Code should look more or less like so:
+Once the folder has been opened, close the welcome message and press `[Ctrl+']` to toggle the terminal. Another way to open the terminal is to `Menu > View > Terminal`. Your Code should look more or less like so:
 ![Hello World in VSCode](./Images/HelloWorld.EmptyFolderInVsCode.png)
 
 From now on you can type the commands directly in VSCode, in the terminal instead of Git Bash, but Git Bash will still work. 
