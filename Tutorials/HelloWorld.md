@@ -183,10 +183,37 @@ The above command invokes `git` and tells it to `commit` with message `-m"<Messa
 
 Check nothing is left in the CHANGES in the Source Control pannel or that `git status` shows there are no changes, check out `git log` to see your commit and you are done with the solution setup.
 
-<!--
 # Unit tests
 
 Test Driven Development is the idea that whatever functionality we want to code, first we should write a unit test which will check if that functionality is implemented correctly. Of course in the first step that functionality is not implemented, so the test will fail, that is OK, then we will implement the functionality and make the test pass. From now on everytime the code changes you can run that test and make sure new features are not breaking the older ones. The tests should be small to test one specific thing if only possible that way if one fails it will be easier to find what is wrong. 
 
-In the earlier steps we have already created the test project `HelloWorld.Tests`
--->
+In the earlier steps we have already created the test project `HelloWorld.Tests` and by default it created a first unit test file called `UnitTests1.cs`. It can be found in `HelloWorld\HelloWorld.Tests\UnitTests1.cs`. That file is the reason why when you run the tests the output says one test was successfu. 
+
+```
+PS C:\TDDT\HelloWorld> dotnet test HelloWorld.Tests
+.
+.
+Starting test execution, please wait...
+
+Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
+Test Run Successful.
+```
+
+It contents of that file define an always passing test and it is helpful to write tests faster, but as it is a learning opportunity, let's delete that file and let's start _programming_ from scratch. 
+
+## 7. Create Unit Tests File for the Greater Object
+
+First, what is that Greeter Object? To explain that we need to start with exlaining [programming paradigms](https://en.wikipedia.org/wiki/Programming_paradigm) (it is easier than it sounds), and to explain that we need to understand what is [computer programming](https://en.wikipedia.org/wiki/Computer_programming). For me, at the most basic level, computer programming is solving problems with computers. To do that one has to define the problem and implement a solution using one or more programming languages which can then be compiled to computer understandable instructions and executed by the computer.
+
+Programming languages are a bit like human langauges, they have words and grammar. They have been designed to help solve problems in a particular way. That particular way is the programming paradigm. It is important to understand because effectively that paradigm, specific way of solving problems is as important to understand as the language itself. There are imperative and declarative programming languages, most common nowadays are object oriented or functional. This hello World example attempts to show how to use [Object Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) using [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) to solve business problems in a way which is of professional quality. 
+
+Object Oriented Programming or OOP is an attempt to model real world problems with _objects_ that model real world with structures containing data that describes their properties and methods that can modify that state, or more generally do some stuff. For example if you want to model a car, the _car_ would be the object, _speed_ would be a property and _accelerate_ a method that increases the _speed_.
+
+Back to our first unit test. The first step is to create a file. Typically the filename is `<ObjectName>Tests.cs`. That means we need to decide what is our object. We want to write an application that says Hello World so in object oriented world we can imagine there is a person that greets us which we will model as a _greeter_ object. By convention in C# class names use _PascalCase_ and by default each _class_ (definition of an object) is defined in its own file with the same name. Also by convention a class testing another class has the same name but with _Tests_ appended to it. 
+
+So what we know so far? 
+We will need a `Greeter` object defined in `Greeter.cs` file in the `HelloWorld` project and to test it a `GreeterTests` object defined in `GreeterTests.cs` file in the `HelloWorld.Tests` project.
+
+Create `GreaterTests.cs` file
+
+![Create First Test](./Images/HelloWorld.UnitTests1.png)
