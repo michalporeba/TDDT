@@ -140,10 +140,13 @@ Fewer files are now tracked by git, but still in VS Code there are many files vi
 }
 ```
 
-<<<<<<< HEAD
+`.vscode\settings.json` is a collection of vs code's project specific settings that overwrite user and global settings. Specifically we are excluding files from the exclorer panel.
+
 ![Solution after cleanup](./Images/HelloWorld.SolutionAfterCleanup.png)
 
-Stage all the changes 
+## 6. Stage and commit all the changes so far
+
+Now it is time to _save_ our changes
 
 ```
 git status
@@ -159,8 +162,3 @@ git commit -m"solution set up"
 ```
 
 ![Commit changes](./Images/HelloWorld.CommitChanges.png)
-=======
-`.vscode\settings.json' is a collection of vs code's project specific settings that overwrite user and global settings. Specifically we are excluding files from the exclorer panel.
-
-![Solution after cleanup](./Images/HelloWorld.SolutionAfterCleanup.png)
->>>>>>> dd7a416316ed7f66c4c14270892d58f27c363099
