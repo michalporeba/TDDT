@@ -2,6 +2,8 @@
 
 It is a long standing tradition to start learning of a new programming langauge with a `Hello World` application. The objective is to write an application that will display a 'Hello World' message to the user. With modern tools like Visual Studio (not Code) it is possible to write such application with exactly 3 mouse clicks and no typing at all. But this doesn't teach much, it shows how to generate code that does something trivial without explaining why and how things work. It doesn't explain how to test a code either, a skill which is as important as coding itself. We will do it differently. It will take much longer, that's for sure, but hopefully it will allow you to understand what is happening, a good start to learning to write computer programs. To make most of the learning process don't be lazy, don't copy and past but instead type all the commands and code yourself. If you find any errors, try to solve the problem or ask for help online. 
 
+# Solution setup
+
 ## 1. Create a folder for the solution
 Now that all the tools are ready we need to have a folder where the code will be written. 
 Create a folder `C:\TDDT\HelloWorld` 
@@ -61,10 +63,10 @@ The number 1 in the blue cricle on top of Source Control icon indicates that the
 There are many unit testing frameworks: mstest, nunit, xunit to name a few. For the purposes of this tutorial we will use NUnit. Create a unit test project
 
 ```
-dotnet new nunit -n Tests\HelloWorld.Tests
+dotnet new nunit -n HelloWorld.Tests
 ```
 
-The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming it with parameter `-n` as `HelloWorld.Tests` and putting it in the `Tests\` folder. 
+The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming `-n HelloWorld.Tests`. 
 
 Next we need a project in which we will implement the functionality. This will be a library project, which means it cannot be executed by itself, but it can define functionality which then can be used by other projects. 
 
@@ -77,7 +79,7 @@ The above command invoked `dotnet` and tells it to create a `new` thing using `c
 Becasue the test project `HelloWorld.Tests` is supposed to test our library `HelloWorld` it will have to be able to know about that library. In programing we call it references or dependencies. `HelloWorld.Tests` references (and depends on) `HelloWorld`.
 
 ```
-dotnet add Tests\HelloWorld.Tests reference HelloWorld
+dotnet add HelloWorld.Tests reference HelloWorld
 ```
 
 The above command invokes `dotnet` and tells it to add to `HelloWorld.Tests` a `reference` to `HelloWorld`
@@ -86,7 +88,7 @@ The last thing left is to add both projects to the solution
 
 ```
 dotnet sln add HelloWorld
-dotnet sln add Tests\HelloWorld.Tests
+dotnet sln add HelloWorld.Tests
 ```
 
 The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`. 
@@ -151,7 +153,7 @@ Just before you do so make sure you can build the solution and that all the test
 
 ```
 dotnet build
-dotnet test .\Tests\
+dotnet test .\HelloWorld.Tests
 ```
 
 Now, assuming no errors were returns, it is time to _save_ our changes. Of course the files are already saved on the disk, but they are not _saved_ in, or _committed_ to the repository. You still see them in the Source Control ([Ctrl+Shift+G]) panel. To save them you will have to first stage them. This seems unnecessary at first, but it allows you to commit a selection of files should you need to. For now either click the `+` icon next to each file (it will show when you hover over the file name in the Source Control panel) or click the `+` sign which appears when you hover over the _CHANGES_ in the Source Control panel. 
@@ -179,4 +181,12 @@ The above command invokes `git` and tells it to `commit` with message `-m"<Messa
 
 ![Commit changes](./Images/HelloWorld.CommitChanges.png)
 
-Check nothing is left in the CHANGES in the Source Control pannel or that `git status` shows there are no changes and you are done with the solution setup.
+Check nothing is left in the CHANGES in the Source Control pannel or that `git status` shows there are no changes, check out `git log` to see your commit and you are done with the solution setup.
+
+<!--
+# Unit tests
+
+Test Driven Development is the idea that whatever functionality we want to code, first we should write a unit test which will check if that functionality is implemented correctly. Of course in the first step that functionality is not implemented, so the test will fail, that is OK, then we will implement the functionality and make the test pass. From now on everytime the code changes you can run that test and make sure new features are not breaking the older ones. The tests should be small to test one specific thing if only possible that way if one fails it will be easier to find what is wrong. 
+
+In the earlier steps we have already created the test project `HelloWorld.Tests`
+-->
