@@ -95,3 +95,20 @@ Create `.vscode\settings.json` file with the following content
 ```
 
 ![Solution after cleanup](./Images/HelloWorld.SolutionAfterCleanup.png)
+
+Stage all the changes 
+
+```
+git status
+git add .
+```
+
+![Stage all changes](./Images/HelloWorld.StageAllChanges.png)
+
+Commit changes
+
+```
+git commit -m"solution set up"
+```
+
+![Commit changes](./Images/HelloWorld.CommitChanges.png)

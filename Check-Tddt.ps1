@@ -4,6 +4,8 @@ $script:check = 0
 $project = "HelloWorld"
 $path = "C:\TDDT\$project"
 
+cd "$path"
+
 function Write-Error {
     [CmdletBinding()]
     param([parameter(Position=0, Mandatory=$true)][string]$Message)
@@ -189,41 +191,51 @@ if ((-Not (Test-Path -Path "$path\$project\bin" -PathType Container)) -Or (-Not 
 if (-Not (Test-Path -Path "$path\.gitignore")) {
     Write-NextStep "Create $path\.gitignore file. You can add it using VSCode, or a command" -Command "'bin/','obj/' | Set-Content '.gitignore'"
     return
-} else {
-    Write-Success ".gitignore file exists"
-}
-
-
-if (-Not((Get-Content "$path\.gitignore") -like "*bin/*")) {
+} elseif (-Not((Get-Content "$path\.gitignore") -like "*bin/*")) {
     Write-NextStep "Add bin/ to .gitignore"
     return
-} else {
-    Write-Success ".gitignore containg bin/"
-}
-
-if (-Not((Get-Content "$path\.gitignore") -like "*obj/*")) {
+} elseif (-Not((Get-Content "$path\.gitignore") -like "*obj/*")) {
     Write-NextStep "Add obj/ to .gitignore"
     return
 } else {
-    Write-Success ".gitignore containg obj/"
+    Write-Success ".gitignore file is configured"
 }
 
 if (-Not (Test-Path -Path "$path\.vscode\settings.json")) {
     Write-NextStep "Create $path\.vscode\settings.json file. "
     return
 } else {
-    Write-Success ".vscode\settings.json exists"
+    $vscodesettings = (Get-Content "$path\.vscode\settings.json" | ConvertFrom-Json)
+    if (-Not($vscodesettings."files.exclude".".vscode/" -eq $true)) {
+        Write-NextStep "Add .vscode/ to files.exclude in .vscode\settings.json"
+        return 
+    }
+
+    if (-Not($vscodesettings."files.exclude"."**/bin/" -eq $true)) {
+        Write-NextStep "Add **/bin/ to files.exclude in .vscode\settings.json"
+        return 
+    }
+    
+    if (-Not($vscodesettings."files.exclude"."**/obj/" -eq $true)) {
+        Write-NextStep "Add **/obj/ to files.exclude in .vscode\settings.json"
+        return 
+    }
+    
+    Write-Success ".vscode\settings.json is configured"
 }
 
-$vscodesettings = (Get-Content "$path\.vscode\settings.json")
-if (-Not($vscodesettings -like "*bin/*")) {
-    Write-NextStep "Add bin/ to .gitignore"
+$gitstatus = (& git status)
+if ($gitstatus -like "*no commits yet*") {
+    if ($gitstatus -like "*Untracked files:*") {
+        Write-NextStep "It is time to commit the changes to the repository. First stage all the files in $path" -Command "git status","git add ."
+        return
+    }
+
+    Write-NextStep "It is time to commit the changes to the repository" -Command "git commit -m`"initial solution setup`""
     return
 } else {
-    Write-Success ".gitignore containg bin/"
+    Write-Success "First commit done"
 }
-
-
 #dotnet new nunit -n HelloWorld.Tests
 
 Write-Host ""
