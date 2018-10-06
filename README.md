@@ -14,7 +14,7 @@ So what is it that one has to learn to be able to program in 2018? There is a mi
 ## Tutorials 
 
 1. **[Environment Setup](./Tutorials/WorkstationSetup.md)**
-2. **[HelloWorld!](./Tutorials/HellowWorld.md)**
+2. **[HelloWorld!](./Tutorials/HelloWorld.md)**
 
 <!--
 # Practice Makes Perfect 

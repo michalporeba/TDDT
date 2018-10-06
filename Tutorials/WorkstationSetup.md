@@ -39,6 +39,8 @@ After installation you will find `Visual Studio Code` in your start menu.
 ## 5. Visual Studio Code Extensions
 Although Visual Studio Code (VS Code) is useful on its own, it can use extensions which are developed and distributed independently. To make life easier through this lengthy hello world example install `C# (ms-vscode.csharp)` and `Gitlens (eamodio.gitlens)` extensions using the following commands: 
 
+(If you had Git Bash open when you installed Visual Studio Code you will have to close and open it again for the `code` command to become available)
+
 ```
 code --install-extension ms-vscode.csharp
 code --install-extension eamodio.gitlens
