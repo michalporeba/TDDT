@@ -61,10 +61,10 @@ The number 1 in the blue cricle on top of Source Control icon indicates that the
 There are many unit testing frameworks: mstest, nunit, xunit to name a few. For the purposes of this tutorial we will use NUnit. Create a unit test project
 
 ```
-dotnet new nunit -n HelloWorld.Tests
+dotnet new nunit -n Tests\HelloWorld.Tests
 ```
 
-The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming it `-n HelloWorld.Tests`. 
+The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming it with parameter `-n` as `HelloWorld.Tests` and putting it in the `Tests\` folder. 
 
 Next we need a project in which we will implement the functionality. This will be a library project, which means it cannot be executed by itself, but it can define functionality which then can be used by other projects. 
 
@@ -77,7 +77,7 @@ The above command invoked `dotnet` and tells it to create a `new` thing using `c
 Becasue the test project `HelloWorld.Tests` is supposed to test our library `HelloWorld` it will have to be able to know about that library. In programing we call it references or dependencies. `HelloWorld.Tests` references (and depends on) `HelloWorld`.
 
 ```
-dotnet add HelloWorld.Tests reference HelloWorld
+dotnet add Tests\HelloWorld.Tests reference HelloWorld
 ```
 
 The above command invokes `dotnet` and tells it to add to `HelloWorld.Tests` a `reference` to `HelloWorld`
@@ -86,7 +86,7 @@ The last thing left is to add both projects to the solution
 
 ```
 dotnet sln add HelloWorld
-dotnet sln add HelloWorld.Tests
+dotnet sln add Tests\HelloWorld.Tests
 ```
 
 The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`. 
