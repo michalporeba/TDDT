@@ -144,21 +144,39 @@ Fewer files are now tracked by git, but still in VS Code there are many files vi
 
 ![Solution after cleanup](./Images/HelloWorld.SolutionAfterCleanup.png)
 
+
 ## 6. Stage and commit all the changes so far
 
-Now it is time to _save_ our changes
+Just before you do so make sure you can build the solution and that all the tests pass using 
+
+```
+dotnet build
+dotnet test .\Tests\
+```
+
+Now, assuming no errors were returns, it is time to _save_ our changes. Of course the files are already saved on the disk, but they are not _saved_ in, or _committed_ to the repository. You still see them in the Source Control ([Ctrl+Shift+G]) panel. To save them you will have to first stage them. This seems unnecessary at first, but it allows you to commit a selection of files should you need to. For now either click the `+` icon next to each file (it will show when you hover over the file name in the Source Control panel) or click the `+` sign which appears when you hover over the _CHANGES_ in the Source Control panel. 
+
+As with everything so far it is also possible to do this from terminal
 
 ```
 git status
 git add .
 ```
 
+The first command `git status` is used to see which files have been modifed since the last commit and then they can be added using `git add <filename>` or as in the example above you can add all of them with `git add .`. Do `git status` again after adding, you will see that the files are now marked as staged (and they appear in green not in red).
+
 ![Stage all changes](./Images/HelloWorld.StageAllChanges.png)
 
-Commit changes
+Now commit the staged changes. This will create a _checkpoint_ to which you will able to go back should you need to. This is important, we create commits so we can go through the history of changes. To make the history more useful each commit should have a short but meaningful commment explaining why the changs were made. Good commit messages explain the _reason_ not the _content_ of change. What has changed you can see in the commit itself. [Read more about good commit messages](https://medium.com/@andrewhowdencom/anatomy-of-a-good-commit-message-acd9c4490437). 
+
+In VS Code type in `Setting up HelloWorld solution` in the Message textbox on the Source Control pannel and click the `tick` above it, or in Git Bash
 
 ```
-git commit -m"solution set up"
+git commit -m"Setting up HelloWorld solution"
 ```
+
+The above command invokes `git` and tells it to `commit` with message `-m"<Message>"`
 
 ![Commit changes](./Images/HelloWorld.CommitChanges.png)
+
+Check nothing is left in the CHANGES in the Source Control pannel or that `git status` shows there are no changes and you are done with the solution setup.
