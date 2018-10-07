@@ -373,3 +373,42 @@ We will need a `Greeter` object defined in `Greeter.cs` file in the `HelloWorld`
 Create `GreaterTests.cs` file
 
 ![Create First Test](./Images/HelloWorld.UnitTests1.png)
+
+Open the `GreeterTests.cs` file and define the namespace for our test class. Namespace could be called just about anything but by convention it should match the folder structure we put in place so in hour case `HelloWorld.Tests`.
+
+__`GreeterTests.cs` file:__
+```cs
+namespace HelloWorld.Tests 
+{
+
+}
+```
+
+In the above code the `namespace` is the keyword that starts the definition of a new _namespace_. `HelloWorld.Tests` is the name of the _namespace_. The curly brackets `{` and `}` define the beginning and the end of the _namespace_. 
+
+Now add the GreeterTests class definition in the namespace.
+
+__`GreeterTests.cs` file:__
+```cs 
+namespace HelloWorld.Tests
+{
+    public class GreeterTests 
+    {
+
+    }
+}
+```
+
+`public` is another keyword and an [access modifier](https://en.wikipedia.org/wiki/Access_modifiers). `class` is a keyword defining a class and `GreeterTests` is the name of the class. The curley brackets `{` and `}` once again define the beginning and the end of our definition. 
+
+**Things to Remember**
+* Namespaces group classes and help organise code. They also help avoiding naming conflicts. Each class name has to be unique, but only within a namespace. 
+* Curly Brackets define scope, beginning and end of things in code.
+
+If you look at the `GreeterTests.cs` file now in VS Code it will should look like so:
+
+![Code Editory](./Images/HelloWorld.CodeEditor.png)
+
+There are few things we haven't covered yet. There are line numbers which are displayed but are not part of the file (if you open the file in a notepad they will not be there). The line numbers help to navigate the code. Also, when there is a problem with the code the compilier will notify you quoting file name and line number. CodeLens if a feature of VS Code that helps you understand the code by giving you helpful, additional information like in this case that there are no references to the class, which means it can be changed without causing any problems. Not that it is not a new line, it's just a bit of information between lines 2 and 3. 
+
+There is also a comment just to show that not everything in the code file is necessarily code. Anything that starts with `//` (in c#) is a comment and is ignored by the compiler. Things between `/*` and `*/` are also comments and are equally ignored. 

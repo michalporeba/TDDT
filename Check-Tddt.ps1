@@ -241,14 +241,24 @@ Write-Step "Write the First Unit Test"
 
 if (Test-Path $path\HelloWorld.Tests\UnitTest1.cs) {
     Write-NextStep "Delete the default UnitTest1.cs file in HelloWorld.Tests" -Command "rm HelloWorld.Tests\UnitTest1.ps1"
+    return
 } else { 
     Write-Success "Default UnitTest1.cs deleted"
 }
 
-if (Test-Path $path\HelloWorld.Tests\GreeterTests.ps1) {
+$file = "$path\\HelloWorld.Tests\\GreeterTests.cs"
+if (-Not(Test-Path $file)) {
     Write-NextStep "Create GreeterTests.cs" -Command "'' | Set-Content .\HelloWorld.Tests\GreeterTests.cs"
-} else { 
-    Write-Success "GreeterTests.cs exists"
+    return
+} elseif (-Not((Get-Content $file) -like "*namespace HelloWorld.Tests*")) {
+    Write-NextStep "Define namespace in GreeterTests.cs"
+    return
+} elseif (-Not((Get-Content $file) -like "*public class GreeterTests*")) {
+    Write-NextStep "Define public class GreeterTests"
+    return
+} else {
+    Write-Success "GreeterTests.cs is ready"
 }
+
 
 Write-Host ""
