@@ -22,23 +22,23 @@ Next step is to create a git repository in the folder to let git know that we wa
 
 Now initiate the repository.
 
-_Command:_ 
+__Command:__ 
 ```powershell
 git init
 ```
 
-_Expected Output:_
+__Expected Output:__
 > PS C:\TDDT\HelloWorld> git init  
 > Initialized empty Git repository in C:/TDDT/HelloWorld/.git/
 
 Check if it really worked just to practice git commands.
 
-_Command:_
+__Command:__
 ```powershell
 git status
 ```
 
-_Expected Output:_
+__Expected Output:__
 > PS C:\TDDT\HelloWorld> git status  
 > On branch master  
 > 
@@ -56,15 +56,15 @@ Next we will need to create a solution for the projects. Solution is a logical g
 <!-- TODO: explain why a folder, and that it needs to be created -->
 Navigate to C:\TDDT in the terminal and execute
 
-_Command:_
+__Command:__
 ```powershell
 dotnet new sln
 ```
-_Expected Output:_
+__Expected Output:__
 > PS C:\TDDT\HelloWorld> dotnet new sln  
 > The template "Solution File" was created successfully.
 
-_Cmommand Explanation:_  
+__Cmommand Explanation:__  
 _The command invokes `dotnet` and tells it to create a `new` solution `sln` using the name of the current folder as a solution name. It is possible to specify another name using `-n` parameter._
 
 `HelloWorld.sln` file is now visible in VS Code Explorer.
@@ -75,12 +75,12 @@ The number 1 in the blue cricle on top of Source Control icon indicates that the
 
 There are many unit testing frameworks: mstest, nunit, xunit to name a few. For the purposes of this tutorial we will use NUnit. Create a unit test project.
 
-_Command:_
+__Command:__
 ```powershell
 dotnet new nunit -n HelloWorld.Tests
 ```
 
-_Expected Output:_  
+__Expected Output:__  
 >PS C:\TDDT\HelloWorld> dotnet new nunit -n HelloWorld.Tests  
 >The template "NUnit 3 Test Project" was created successfully.  
 >
@@ -89,17 +89,17 @@ _Expected Output:_
 > ⋮  
 > Restore succeeded.
 
-_Command Explanation:_  
+__Command Explanation:__  
 _The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming `-n HelloWorld.Tests`._
 
 Next we need a project in which we will implement the functionality. This will be a library project, which means it cannot be executed by itself, but it can define functionality which then can be used by other projects. 
 
-_Command:_
+__Command:__
 ```powershell
 dotnet new classlib -n HelloWorld
 ```
 
-_Expected Output:_
+__Expected Output:__
 >PS C:\TDDT\HelloWorld> dotnet new classlib -n HelloWorld  
 >The template "Class library" was created successfully.  
 >
@@ -108,38 +108,38 @@ _Expected Output:_
 > ⋮  
 >Restore succeeded.
 
-_Command Explanation:_
+__Command Explanation:__
 _The above command invoked `dotnet` and tells it to create a `new` thing using `classlib` template and naming it `-n HelloWorld`._
 
 Becasue the test project `HelloWorld.Tests` is supposed to test our library `HelloWorld` it will have to be able to know about that library. In programing we call it references or dependencies. `HelloWorld.Tests` references (and depends on) `HelloWorld`.
 
-_Command:_
+__Command:__
 ```powershell
 dotnet add HelloWorld.Tests reference HelloWorld
 ```
 
-_Expected Output:_
+__Expected Output:__
 >PS C:\TDDT\HelloWorld> dotnet add HelloWorld.Tests reference HelloWorld  
 >Reference `..\HelloWorld\HelloWorld.csproj` added to the project.
 
-_Command Explanation:_
+__Command Explanation:__
 _The above command invokes `dotnet` and tells it to add to `HelloWorld.Tests` a `reference` to `HelloWorld`._
 
 The last thing left is to add both projects to the solution
 
-_Commands:_
+__Commands:__
 ```powershell
 dotnet sln add HelloWorld
 dotnet sln add HelloWorld.Tests
 ```
 
-_Expected Output:_
+__Expected Output:__
 >PS C:\TDDT\HelloWorld> dotnet sln add HelloWorld  
 >Project `HelloWorld\HelloWorld.csproj` added to the solution.  
 >PS C:\TDDT\HelloWorld> dotnet sln add HelloWorld.Tests  
 >Project `HelloWorld.Tests\HelloWorld.Tests.csproj` added to the solution.
 
-_Command Explanation:_
+__Command Explanation:__
 _The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`._
 
 This is how the solution structure looks now, just before the first build
@@ -150,12 +150,12 @@ Building is a process of converting code and all of associated _assets_ into a c
 
 Build solution 
 
-_Command:_
+__Command:__
 ```powershell
 dotnet build
 ```
 
-_Expected Output:_
+__Expected Output:__
 >
 >Build succeeded.  
 >&nbsp;&nbsp;&nbsp;0 Warning(s)  
@@ -163,7 +163,7 @@ _Expected Output:_
 >
 >Time Elapsed 00:00:08.47
 
-_Command Explanation:_
+__Command Explanation:__
 _The above command invokes `dotnet` and tells it to build solution in the current folder._
 
 ![HelloWorld.sln](./Images/HelloWorld.SolutionAfterFirstBuild.png)
