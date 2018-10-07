@@ -108,7 +108,7 @@ __Expected Output:__
 > ⋮  
 >Restore succeeded.
 
-__Command Explanation:__
+__Command Explanation:__  
 _The above command invoked `dotnet` and tells it to create a `new` thing using `classlib` template and naming it `-n HelloWorld`._
 
 Becasue the test project `HelloWorld.Tests` is supposed to test our library `HelloWorld` it will have to be able to know about that library. In programing we call it references or dependencies. `HelloWorld.Tests` references (and depends on) `HelloWorld`.
@@ -139,7 +139,7 @@ __Expected Output:__
 >PS C:\TDDT\HelloWorld> dotnet sln add HelloWorld.Tests  
 >Project `HelloWorld.Tests\HelloWorld.Tests.csproj` added to the solution.
 
-__Command Explanation:__
+__Command Explanation:__  
 _The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`._
 
 This is how the solution structure looks now, just before the first build
@@ -181,7 +181,7 @@ __Command:__
 'bin/','obj/' | Set-Content .gitignore
 ```
 
-__Command Explanation:__
+__Command Explanation:__  
 The command taks two strings `bin/` and `obj/` and _pipes_ them to a file `.gitignore`. 
 
 __`.gitignore` file:__
@@ -227,7 +227,7 @@ __Command:__
 New-Item .vscode\settings.json -Force
 ```
 
-__Command Explanation:__
+__Command Explanation:__  
 _The command `New-Item` creates a new file at path `.vscode\settings.json` and the `-Force` switch ensures all the missing folders in the path are automatically created._
 
 The `New-Item` command is a PowerShell command and it will not work in Git Bash so you have to execute it from the VS Code terminal or from another PowerShell window. 
@@ -310,7 +310,7 @@ __Expected Output:__
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld/Class1.cs  
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld/HelloWorld.csproj  
 
-__Command Explanation:__
+__Command Explanation:__  
 _The first command `git status` is used to see which files have been modifed since the last commit and then they can be added using `git add <filename>` or as in the example above you can add all of them with `git add .`. Do `git status` again after adding, you will see that the files are now marked as staged (and they appear in green not in red)._
 
 ![Stage all changes](./Images/HelloWorld.StageAllChanges.png)
@@ -336,7 +336,7 @@ __Expected Output:__
 >&nbsp;&nbsp; create mode 100644 HelloWorld/Class1.cs  
 >&nbsp;&nbsp; create mode 100644 HelloWorld/HelloWorld.csproj  
 
-__Command Explanation:__
+__Command Explanation:__  
 _The above command invokes `git` and tells it to `commit` with message `-m"<Message>"`_
 
 ![Commit changes](./Images/HelloWorld.CommitChanges.png)
