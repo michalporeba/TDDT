@@ -64,7 +64,7 @@ __Expected Output:__
 > PS C:\TDDT\HelloWorld> dotnet new sln  
 > The template "Solution File" was created successfully.
 
-__Cmommand Explanation:__  
+__Command Explanation:__  
 _The command invokes `dotnet` and tells it to create a `new` solution `sln` using the name of the current folder as a solution name. It is possible to specify another name using `-n` parameter._
 
 `HelloWorld.sln` file is now visible in VS Code Explorer.
@@ -163,7 +163,7 @@ __Expected Output:__
 >
 >Time Elapsed 00:00:08.47
 
-__Command Explanation:__
+__Command Explanation:__  
 _The above command invokes `dotnet` and tells it to build solution in the current folder._
 
 ![HelloWorld.sln](./Images/HelloWorld.SolutionAfterFirstBuild.png)
@@ -172,20 +172,25 @@ There are many (in my case 21 but this can vary) changed files. Most of them aut
 
 ## 4. Add .gitignore file
 
-Create the `.gitignore` file in the `C:\TDDT\HelloWorld` folder and add two lines in it:
+Create the `.gitignore` file in the `C:\TDDT\HelloWorld` folder and add bin/ and obj/ to it. 
 
+There are many ways to create this file. You can do `[Ctrl+N]` or you can go to menu and choose `File > New File` in VS Code. You can use the terminal there too. Then you will have to type in the two lines manually, or you can use the terminal again
+
+__Command:__
+```
+'bin/','obj/' | Set-Content .gitignore
+```
+
+__Command Explanation:__
+The command taks two strings `bin/` and `obj/` and _pipes_ them to a file `.gitignore`. 
+
+__`.gitignore` file:__
 ```
 bin/
 obj/
 ```
 
-There are many ways to create this file. You can do `[Ctrl+N]` or you can go to menu and choose `File > New File` in VS Code. You can use the terminal there too.
-
-```
-'bin/','obj/' | Set-Content .gitignore
-```
-
-This excludes `obj` and `bin` folders from being tracked by git
+ This excludes `obj` and `bin` folders from being tracked by git.
 
 ![.gitignore](./Images/HelloWorld.GitIgnore.png)
 
@@ -193,6 +198,7 @@ This excludes `obj` and `bin` folders from being tracked by git
 
 Fewer files are now tracked by git, but still in VS Code there are many files visible, which will only get in the way of day to day development. To hide them create `.vscode\settings.json` file with the following content
 
+__`.vscode\settings.json` file:__
 ```
 { 
     "files.exclude": { 
@@ -203,22 +209,26 @@ Fewer files are now tracked by git, but still in VS Code there are many files vi
 }
 ```
 
-The above is not a command but an example of the file's content. You will have to create the folder `.vscode` and the file `settings.json` in VS Code using the explorer or using the terminal 
+The above is not a command but an example of the file's content. You will have to create the folder `.vscode` and the file `settings.json` in VS Code using the explorer panel or using the terminal.
 
-```
-mkdir .vscode
+__Commands:__
+```powershell
+New-Item .vscode -ItemType Directory
 New-Item .vscode\settings.json
 ```
 
-The first command `mkdir` creates new folder `.vscode` and the second one `New-Item` creates a new file `settings.json` in `.vscode`.
+__Command Explanation:__
+_The first command `New-Item` creates a new thing called `.vscode` and makes sure it is a directory (`-ItemType Directory`). The second one `New-Item` creates a new file `settings.json` in `.vscode`._
 
-Alternatively 
+Alternatively in a single command 
 
+__Command:__
 ```
 New-Item .vscode\settings.json -Force
 ```
 
-The command `New-Item` creates a new file at path `.vscode\settings.json` and the `-Force` switch ensures all the missing folders in the path are automatically created. 
+__Command Explanation:__
+_The command `New-Item` creates a new file at path `.vscode\settings.json` and the `-Force` switch ensures all the missing folders in the path are automatically created._
 
 The `New-Item` command is a PowerShell command and it will not work in Git Bash so you have to execute it from the VS Code terminal or from another PowerShell window. 
 
@@ -229,23 +239,79 @@ The `.vscode\settings.json` is a collection of vs code's project specific settin
 
 ## 6. Stage and commit all the changes so far
 
-Just before you do so make sure you can build the solution and that all the tests pass using 
+Just before you do so make sure you can build the solution and that all the tests pass.
 
+__Commands:__
 ```
 dotnet build
-dotnet test .\HelloWorld.Tests
+dotnet test HelloWorld.Tests
 ```
+
+__Expected Output:__
+>PS C:\TDDT\HelloWorld>dotnet build  
+> ⋮  
+>Build succeeded.  
+>&nbsp;&nbsp;&nbsp;0 Warning(s)  
+>&nbsp;&nbsp;&nbsp;0 Error(s)  
+>
+>PS C:\TDDT\HelloWorld>dotnet test HelloWorld.Tests  
+> ⋮  
+>Starting test execution, please wait...  
+>  
+>Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.  
+>Test Run Successful.  
+>Test execution time: 2.2111 Seconds  
 
 Now, assuming no errors were returns, it is time to _save_ our changes. Of course the files are already saved on the disk, but they are not _saved_ in, or _committed_ to the repository. You still see them in the Source Control ([Ctrl+Shift+G]) panel. To save them you will have to first stage them. This seems unnecessary at first, but it allows you to commit a selection of files should you need to. For now either click the `+` icon next to each file (it will show when you hover over the file name in the Source Control panel) or click the `+` sign which appears when you hover over the _CHANGES_ in the Source Control panel. 
 
 As with everything so far it is also possible to do this from terminal
 
+__Commands:__
 ```
 git status
 git add .
+git status
 ```
 
-The first command `git status` is used to see which files have been modifed since the last commit and then they can be added using `git add <filename>` or as in the example above you can add all of them with `git add .`. Do `git status` again after adding, you will see that the files are now marked as staged (and they appear in green not in red).
+__Expected Output:__
+>**PS C:\TDDT\HelloWorld> git status**  
+>On branch master  
+>
+>No commits yet  
+>
+>Untracked files:  
+>&nbsp;&nbsp;(use "git add <file>..." to include in what will be committed)
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.gitignore  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.vscode/  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HelloWorld.Tests/  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HelloWorld.sln  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HelloWorld/  
+>
+>nothing added to commit but untracked files present (use "git add" to track)
+>
+>**PS C:\TDDT\HelloWorld> git add .**  
+>warning: LF will be replaced by CRLF in HelloWorld.Tests/UnitTest1.cs.  
+>The file will have its original line endings in your working directory  
+>
+>**PS C:\TDDT\HelloWorld> git status**  
+>On branch master  
+>
+>No commits yet  
+>
+>Changes to be committed:  
+>&nbsp;&nbsp;&nbsp;(use "git rm --cached <file>..." to unstage)  
+>  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   .gitignore  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   .vscode/settings.json  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld.Tests/HelloWorld.Tests.csproj  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld.Tests/UnitTest1.cs  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld.sln  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld/Class1.cs  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new file:   HelloWorld/HelloWorld.csproj  
+
+__Command Explanation:__
+_The first command `git status` is used to see which files have been modifed since the last commit and then they can be added using `git add <filename>` or as in the example above you can add all of them with `git add .`. Do `git status` again after adding, you will see that the files are now marked as staged (and they appear in green not in red)._
 
 ![Stage all changes](./Images/HelloWorld.StageAllChanges.png)
 
@@ -253,11 +319,25 @@ Now commit the staged changes. This will create a _checkpoint_ to which you will
 
 In VS Code type in `Setting up HelloWorld solution` in the Message textbox on the Source Control pannel and click the `tick` above it, or in Git Bash
 
-```
+__Command:__
+```powershell
 git commit -m"Setting up HelloWorld solution"
 ```
 
-The above command invokes `git` and tells it to `commit` with message `-m"<Message>"`
+__Expected Output:__
+>PS C:\TDDT\HelloWorld> git commit -m"Setting up HelloWorld solution"  
+>[master (root-commit) 1434d0b] Setting up HelloWorld solution  
+>&nbsp;&nbsp; 7 files changed, 102 insertions(+)  
+>&nbsp;&nbsp; create mode 100644 .gitignore  
+>&nbsp;&nbsp; create mode 100644 .vscode/settings.json  
+>&nbsp;&nbsp; create mode 100644 HelloWorld.Tests/HelloWorld.Tests.csproj  
+>&nbsp;&nbsp; create mode 100644 HelloWorld.Tests/UnitTest1.cs  
+>&nbsp;&nbsp; create mode 100644 HelloWorld.sln  
+>&nbsp;&nbsp; create mode 100644 HelloWorld/Class1.cs  
+>&nbsp;&nbsp; create mode 100644 HelloWorld/HelloWorld.csproj  
+
+__Command Explanation:__
+_The above command invokes `git` and tells it to `commit` with message `-m"<Message>"`_
 
 ![Commit changes](./Images/HelloWorld.CommitChanges.png)
 
@@ -269,15 +349,11 @@ Test Driven Development is the idea that whatever functionality we want to code,
 
 In the earlier steps we have already created the test project `HelloWorld.Tests` and by default it created a first unit test file called `UnitTests1.cs`. It can be found in `HelloWorld\HelloWorld.Tests\UnitTests1.cs`. That file is the reason why when you run the tests the output says one test was successfu. 
 
-```
-PS C:\TDDT\HelloWorld> dotnet test HelloWorld.Tests
-.
-.
-Starting test execution, please wait...
-
-Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
-Test Run Successful.
-```
+>PS C:\TDDT\HelloWorld> dotnet test HelloWorld.Tests  
+>Starting test execution, please wait...  
+>  
+>Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.  
+>Test Run Successful.
 
 It contents of that file define an always passing test and it is helpful to write tests faster, but as it is a learning opportunity, let's delete that file and let's start _programming_ from scratch. 
 
