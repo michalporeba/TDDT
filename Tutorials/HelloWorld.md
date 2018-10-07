@@ -20,23 +20,31 @@ From now on you can type the commands directly in VSCode, in the terminal instea
 
 Next step is to create a git repository in the folder to let git know that we want it to version contents of that folder. To do so, make sure you are in the `C:\TDDT\HellowWorld` folder (the terminal prompt should be `PS C:\TDDT\HelloWorld>`). If you are not navigate to it by executing `cd C:\TDDT\HelloWorld` in the terminal. 
 
-Now initiate the repository using `git init`. The Code's terminal should look something like this
+Now initiate the repository.
 
+_Command:_ 
+```powershell
+git init
 ```
-PS C:\TDDT\HelloWorld> git init
-Initialized empty Git repository in C:/TDDT/HelloWorld/.git/
+
+_Expected Output:_
+> PS C:\TDDT\HelloWorld> git init  
+> Initialized empty Git repository in C:/TDDT/HelloWorld/.git/
+
+Check if it really worked just to practice git commands.
+
+_Command:_
+```powershell
+git status
 ```
 
-Check if it really worked using `git status` just to practice git commands.
-
-```
-PS C:\TDDT\HelloWorld> git status
-On branch master
-
-No commits yet
-
-nothing to commit (create/copy files and use "git add" to track)
-```
+_Expected Output:_
+> PS C:\TDDT\HelloWorld> git status  
+> On branch master  
+> 
+> No commits yet
+>  
+>nothing to commit (create/copy files and use "git add" to track)
 
 It is worth reading more about git, but at the moment we will only the basics which will be explained here as they become necessary. 
 
@@ -45,14 +53,19 @@ It is worth reading more about git, but at the moment we will only the basics wh
 
 Next we will need to create a solution for the projects. Solution is a logical grouping of projects defined in a *.sln file and a project is a collection of files with code and other assets that get compiled into an executable or a library. It is an important part of the initial setup as we will be developing multiple projects at the same time. The easiest way to do so is using `dotnet` command. 
 
-<!-- explain why a folder, and that it needs to be created -->
+<!-- TODO: explain why a folder, and that it needs to be created -->
 Navigate to C:\TDDT in the terminal and execute
 
-```
+_Command:_
+```powershell
 dotnet new sln
 ```
+_Expected Output:_
+> PS C:\TDDT\HelloWorld> dotnet new sln  
+> The template "Solution File" was created successfully.
 
-The above command invokes `dotnet` and tells it to create a `new` solution `sln` using the name of the current folder as a solution name. It is possible to specify another name using `-n` parameter
+_Cmommand Explanation:_  
+_The command invokes `dotnet` and tells it to create a `new` solution `sln` using the name of the current folder as a solution name. It is possible to specify another name using `-n` parameter._
 
 `HelloWorld.sln` file is now visible in VS Code Explorer.
 
@@ -60,50 +73,98 @@ The above command invokes `dotnet` and tells it to create a `new` solution `sln`
 
 The number 1 in the blue cricle on top of Source Control icon indicates that there are uncommitted changes in the git repo. Let's ignore it for now and carry on creating the projects. As it is a TD (test driven approach we will start with a unit test project. It is where we will first write our tests to make sure the functionality we write is exactly as expected. Obviously it would be much faster to simply write the functionality and simply try it out, to see if the program works. But not every functionality we can write can be easily tested by an end user, and even if it is possible it takes time. At the beginning of a project it might seem like unit tests are waste of time, but as the time goes by and you keep modifying the code to add more and more features unit tests will save you a lot of time retesting and fixing stuff that used to work only the day before. 
 
-There are many unit testing frameworks: mstest, nunit, xunit to name a few. For the purposes of this tutorial we will use NUnit. Create a unit test project
+There are many unit testing frameworks: mstest, nunit, xunit to name a few. For the purposes of this tutorial we will use NUnit. Create a unit test project.
 
-```
+_Command:_
+```powershell
 dotnet new nunit -n HelloWorld.Tests
 ```
 
-The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming `-n HelloWorld.Tests`. 
+_Expected Output:_  
+>PS C:\TDDT\HelloWorld> dotnet new nunit -n HelloWorld.Tests  
+>The template "NUnit 3 Test Project" was created successfully.  
+>
+>Processing post-creation actions...  
+>Running 'dotnet restore' on HelloWorld.Tests\HelloWorld.Tests.csproj...  
+> ⋮  
+> Restore succeeded.
+
+_Command Explanation:_  
+_The above command invokes `dotnet` and tells it to create a `new` thing using the `nunit` template and naming `-n HelloWorld.Tests`._
 
 Next we need a project in which we will implement the functionality. This will be a library project, which means it cannot be executed by itself, but it can define functionality which then can be used by other projects. 
 
-```
+_Command:_
+```powershell
 dotnet new classlib -n HelloWorld
 ```
 
-The above command invoked `dotnet` and tells it to create a `new` thing using `classlib` template and naming it `-n HelloWorld`. 
+_Expected Output:_
+>PS C:\TDDT\HelloWorld> dotnet new classlib -n HelloWorld  
+>The template "Class library" was created successfully.  
+>
+>Processing post-creation actions...  
+>Running 'dotnet restore' on HelloWorld\HelloWorld.csproj...  
+> ⋮  
+>Restore succeeded.
+
+_Command Explanation:_
+_The above command invoked `dotnet` and tells it to create a `new` thing using `classlib` template and naming it `-n HelloWorld`._
 
 Becasue the test project `HelloWorld.Tests` is supposed to test our library `HelloWorld` it will have to be able to know about that library. In programing we call it references or dependencies. `HelloWorld.Tests` references (and depends on) `HelloWorld`.
 
-```
+_Command:_
+```powershell
 dotnet add HelloWorld.Tests reference HelloWorld
 ```
 
-The above command invokes `dotnet` and tells it to add to `HelloWorld.Tests` a `reference` to `HelloWorld`
+_Expected Output:_
+>PS C:\TDDT\HelloWorld> dotnet add HelloWorld.Tests reference HelloWorld  
+>Reference `..\HelloWorld\HelloWorld.csproj` added to the project.
+
+_Command Explanation:_
+_The above command invokes `dotnet` and tells it to add to `HelloWorld.Tests` a `reference` to `HelloWorld`._
 
 The last thing left is to add both projects to the solution
 
-```
+_Commands:_
+```powershell
 dotnet sln add HelloWorld
 dotnet sln add HelloWorld.Tests
 ```
 
-The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`. 
+_Expected Output:_
+>PS C:\TDDT\HelloWorld> dotnet sln add HelloWorld  
+>Project `HelloWorld\HelloWorld.csproj` added to the solution.  
+>PS C:\TDDT\HelloWorld> dotnet sln add HelloWorld.Tests  
+>Project `HelloWorld.Tests\HelloWorld.Tests.csproj` added to the solution.
 
-This is how the solution structure looks before the first build
+_Command Explanation:_
+_The above command invoke `dotnet` and for solution (`sln`) in the local folder `add` a project `<project folder>`._
+
+This is how the solution structure looks now, just before the first build
 
 ![HelloWorld.sln](./Images/HelloWorld.SolutionBeforeFirstBuild.png)
 
+Building is a process of converting code and all of associated _assets_ into a computer understandable set of instructions. Building a solution is the first, most basic test if what we have written can be understood by the build process. If it failes we will not be able to execute our code. 
+
 Build solution 
 
-```
+_Command:_
+```powershell
 dotnet build
 ```
 
-The above command invokes `dotnet` and tells it to build solution in the current folder. 
+_Expected Output:_
+>
+>Build succeeded.  
+>&nbsp;&nbsp;&nbsp;0 Warning(s)  
+>&nbsp;&nbsp;&nbsp;0 Error(s)  
+>
+>Time Elapsed 00:00:08.47
+
+_Command Explanation:_
+_The above command invokes `dotnet` and tells it to build solution in the current folder._
 
 ![HelloWorld.sln](./Images/HelloWorld.SolutionAfterFirstBuild.png)
 
