@@ -118,10 +118,10 @@ bin/
 obj/
 ```
 
-There are many ways to create this file. You can do `[Ctrl+N]`, you can go to menu and choose `File > New File` or using the terminal as we have been doing so far execute 
+There are many ways to create this file. You can do `[Ctrl+N]` or you can go to menu and choose `File > New File` in VS Code. You can use the terminal there too.
 
 ```
-'bin/','obj/' | Set-Content ".gitignore"
+'bin/','obj/' | Set-Content .gitignore
 ```
 
 This excludes `obj` and `bin` folders from being tracked by git
@@ -142,7 +142,26 @@ Fewer files are now tracked by git, but still in VS Code there are many files vi
 }
 ```
 
-`.vscode\settings.json` is a collection of vs code's project specific settings that overwrite user and global settings. Specifically we are excluding files from the exclorer panel.
+The above is not a command but an example of the file's content. You will have to create the folder `.vscode` and the file `settings.json` in VS Code using the explorer or using the terminal 
+
+```
+mkdir .vscode
+New-Item .vscode\settings.json
+```
+
+The first command `mkdir` creates new folder `.vscode` and the second one `New-Item` creates a new file `settings.json` in `.vscode`.
+
+Alternatively 
+
+```
+New-Item .vscode\settings.json -Force
+```
+
+The command `New-Item` creates a new file at path `.vscode\settings.json` and the `-Force` switch ensures all the missing folders in the path are automatically created. 
+
+The `New-Item` command is a PowerShell command and it will not work in Git Bash so you have to execute it from the VS Code terminal or from another PowerShell window. 
+
+The `.vscode\settings.json` is a collection of vs code's project specific settings that overwrite user and global settings. Specifically we are excluding files from the exclorer panel.
 
 ![Solution after cleanup](./Images/HelloWorld.SolutionAfterCleanup.png)
 
