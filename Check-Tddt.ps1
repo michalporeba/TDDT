@@ -246,18 +246,18 @@ if (Test-Path $path\HelloWorld.Tests\UnitTest1.cs) {
     Write-Success "Default UnitTest1.cs deleted"
 }
 
-$file = "$path\\HelloWorld.Tests\\GreeterTests.cs"
+$file = "$path\\HelloWorld.Tests\\GreeterShould.cs"
 if (-Not(Test-Path $file)) {
-    Write-NextStep "Create GreeterTests.cs" -Command "'' | Set-Content .\HelloWorld.Tests\GreeterTests.cs"
+    Write-NextStep "Create GreeterShould.cs" -Command "'' | Set-Content .\HelloWorld.Tests\GreeterShould.cs"
     return
 } elseif (-Not((Get-Content $file) -like "*namespace HelloWorld.Tests*")) {
-    Write-NextStep "Define namespace in GreeterTests.cs"
+    Write-NextStep "Define namespace in GreeterShould.cs"
     return
-} elseif (-Not((Get-Content $file) -like "*public class GreeterTests*")) {
-    Write-NextStep "Define public class GreeterTests"
+} elseif (-Not((Get-Content $file) -like "*public class GreeterShould*")) {
+    Write-NextStep "Define public class GreeterShould"
     return
 } else {
-    Write-Success "GreeterTests.cs is ready"
+    Write-Success "GreeterShould.cs is ready"
 }
 
 

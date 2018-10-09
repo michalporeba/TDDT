@@ -365,18 +365,21 @@ Programming languages are a bit like human langauges, they have words and gramma
 
 Object Oriented Programming or OOP is an attempt to model real world problems with _objects_ that model real world with structures containing data that describes their properties and methods that can modify that state, or more generally do some stuff. For example if you want to model a car, the _car_ would be the object, _speed_ would be a property and _accelerate_ a method that increases the _speed_.
 
-Back to our first unit test. The first step is to create a file. Typically the filename is `<ObjectName>Tests.cs`. That means we need to decide what is our object. We want to write an application that says Hello World so in object oriented world we can imagine there is a person that greets us which we will model as a _greeter_ object. By convention in C# class names use _PascalCase_ and by default each _class_ (definition of an object) is defined in its own file with the same name. Also by convention a class testing another class has the same name but with _Tests_ appended to it. 
+In many programming languages, C# included, objects are defined with the `class` keyword. This is to make a distinction between a _class of object_ (or a _type_) and an _instance_. The _class_ is the blueprint that describes what data the object can hold, and what methods it has but that's all it is, a blueprint. Then in the process called _instantiation_ an _instance_ of that _class_ is created. It is possible to have multiple instances of the same class, and by default they don't share any state, they have the same starting point, the same blueprint, but they have independent state. 
+
+Back to our first unit test. The first step is to create a file. Typically the filename is `<ObjectName>Tests.cs` or `<ObjectName>Should.cs`. That means we need to decide what is our object. We want to write an application that says Hello World so in object oriented world we can imagine there is a person that greets us which we will model as a _greeter_ object. By convention in C# class names use _PascalCase_ and by default each _class_ (definition of an object) is defined in its own file with the same name. Also by convention a class testing another class has the same name but with _Tests_ appended to it. 
 
 So what we know so far? 
-We will need a `Greeter` object defined in `Greeter.cs` file in the `HelloWorld` project and to test it a `GreeterTests` object defined in `GreeterTests.cs` file in the `HelloWorld.Tests` project.
+We will need a `Greeter` object defined in `Greeter.cs` file in the `HelloWorld` project and to test it a `GreeterShould` object defined in `GreeterShould.cs` file in the `HelloWorld.Tests` project.
 
-Create `GreaterTests.cs` file
+Create `GreaterShould.cs` file
 
+<!-- TODO: Screenshot with GreeterShould -->
 ![Create First Test](./Images/HelloWorld.UnitTests1.png)
 
-Open the `GreeterTests.cs` file and define the namespace for our test class. Namespace could be called just about anything but by convention it should match the folder structure we put in place so in hour case `HelloWorld.Tests`.
+Open the `GreeterShould.cs` file and define the namespace for our test class. Namespace could be called just about anything but by convention it should match the folder structure we put in place so in hour case `HelloWorld.Tests`.
 
-__`GreeterTests.cs` file:__
+__`GreeterShould.cs` file:__
 ```cs
 namespace HelloWorld.Tests 
 {
@@ -388,27 +391,44 @@ In the above code the `namespace` is the keyword that starts the definition of a
 
 Now add the GreeterTests class definition in the namespace.
 
-__`GreeterTests.cs` file:__
+__`GreeterShould.cs` file:__
 ```cs 
 namespace HelloWorld.Tests
 {
-    public class GreeterTests 
+    public class GreeterShould 
     {
 
     }
 }
 ```
 
-`public` is another keyword and an [access modifier](https://en.wikipedia.org/wiki/Access_modifiers). `class` is a keyword defining a class and `GreeterTests` is the name of the class. The curley brackets `{` and `}` once again define the beginning and the end of our definition. 
+`public` is another keyword and an [access modifier](https://en.wikipedia.org/wiki/Access_modifiers). `class` is a keyword defining a class and `GreeterShould` is the name of the class. The curley brackets `{` and `}` once again define the beginning and the end of our definition. 
 
 **Things to Remember**
 * Namespaces group classes and help organise code. They also help avoiding naming conflicts. Each class name has to be unique, but only within a namespace. 
 * Curly Brackets define scope, beginning and end of things in code.
 
-If you look at the `GreeterTests.cs` file now in VS Code it will should look like so:
+If you look at the `GreeterShould.cs` file now in VS Code it will should look like so:
 
 ![Code Editory](./Images/HelloWorld.CodeEditor.png)
 
 There are few things we haven't covered yet. There are line numbers which are displayed but are not part of the file (if you open the file in a notepad they will not be there). The line numbers help to navigate the code. Also, when there is a problem with the code the compilier will notify you quoting file name and line number. CodeLens if a feature of VS Code that helps you understand the code by giving you helpful, additional information like in this case that there are no references to the class, which means it can be changed without causing any problems. Not that it is not a new line, it's just a bit of information between lines 2 and 3. 
 
 There is also a comment just to show that not everything in the code file is necessarily code. Anything that starts with `//` (in c#) is a comment and is ignored by the compiler. Things between `/*` and `*/` are also comments and are equally ignored. 
+
+So there is a class in a namespacess, but we still haven't got the first test. Tests are implemented as methods in the test class (as methods are the things that do stuff). Methods are defined similarily as namespaces and classes, with some keywords, names and a code block starting with `{` and ending with `}`. A full method declaration (or signature) consists of four parts: 
+* Access modifier (this can be ommited and then `internal` is implied)
+* Return type (a class or a [value type](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/value-types)) 
+* Method name (single word that is not a reserver keyword)
+* Parameters in paremthasis (or just paremthasis)
+
+Test methods should be public, the same as the test class. We don't expect the method to return any results (it doesn't mean we don't expect it to do things) so we will use word `void` to say we don't want any output. Method names normally should be a command in _PascalCase_. Things like `Validate()`, or `Save()` are common. But tests have their own rules to follow. It might sound unimportant, but good naming helps to write good tests. The test should read well to help understand what they do. We have the class name already sounding like a beginning of the sentance: _Greeter_should_. Let's continue it with a test method called _say_hello_. The methods doesn't need any parameters so we will use empty `()`.
+
+```cs
+public class GreeterShould 
+{
+    public void say_hello() 
+    {
+    }
+}
+```
