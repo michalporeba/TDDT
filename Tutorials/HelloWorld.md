@@ -422,13 +422,148 @@ So there is a class in a namespacess, but we still haven't got the first test. T
 * Method name (single word that is not a reserver keyword)
 * Parameters in paremthasis (or just paremthasis)
 
-Test methods should be public, the same as the test class. We don't expect the method to return any results (it doesn't mean we don't expect it to do things) so we will use word `void` to say we don't want any output. Method names normally should be a command in _PascalCase_. Things like `Validate()`, or `Save()` are common. But tests have their own rules to follow. It might sound unimportant, but good naming helps to write good tests. The test should read well to help understand what they do. We have the class name already sounding like a beginning of the sentance: _Greeter_should_. Let's continue it with a test method called _say_hello_. The methods doesn't need any parameters so we will use empty `()`.
+Test methods should be public, the same as the test class. We don't expect the method to return any results (it doesn't mean we don't expect it to do things) so we will use word `void` to say we don't want any output. Method names normally should be a command in _PascalCase_. Things like `Validate()`, or `Save()` are common. But tests have their own rules to follow. It might sound unimportant, but good naming helps to write good tests. The test should read well to help understand what they do. We have the class name already sounding like a beginning of the sentance: _Greeter_should_. Let's continue it with a test method called _say_hello_. The methods doesn't need any parameters so we will use empty `()`. 
 
+__`GreeterShould.cs` file:__
 ```cs
-public class GreeterShould 
+namespace HelloWorld.Tests 
 {
-    public void say_hello() 
+    public class GreeterShould 
     {
+        public void say_hello() 
+        {
+        }
     }
 }
 ```
+
+We now have a class with a method we intend to be our test but NUnit (that's the unit test framework we are using) doesn't know the class contains tests. (Naming conventions are for the developer, but for tools like NUnit it is not enough). To let it know, we need to _decorate_ the test class `GreeterShould` with the `TestFixture` _attribute_ and _decorate_ the method `say_hello()` with the `Test` _attribute_. At this time it should be sufficiant to know that that's something that can describe, add extra meaning to a class or a method. To add it you add the attribute name in square brackets `[]` typically in the line above the thing we are decorating. 
+
+And the last thing to make test _work_ is to create at least one test assertion in the test method. To do that you have to call a method on the `Assert` class. Let's start with an always failing test with a message  `not implemented` passed as a parameter. 
+
+__`GreeterShould.cs` file:__
+```cs
+namespace HelloWorld.Tests 
+{
+    [TestFixture]
+    public class GreeterShould 
+    {
+        [Test]
+        public void say_hello() 
+        {
+            Assert.Fail("not implemented");
+        }
+    }
+}
+```
+
+Notice that the attributes as well as the `Assert` have a sgwigly red line underneath them. That is the way in which the IDE (VS Code) tells you that something is not right with the code, that the words you used are not recognised in this case. That is because those words are specific to NUnit, not the core C#. To make them available you need to let the compiler know to _import_ a namespace, for those three the `NUnit.Framework` namespace. Save the file and try to building the solution with `dotnet build` and you will see the build fail.
+
+__Command:__
+```powershell
+dotnet build
+```
+
+__Expected Output:__
+>PS C:\TDDT\HelloWorld> dotnet build  
+>Microsoft (R) Build Engine version 15.8.166+gd4e8d81a88 for .NET Core  
+>Copyright (C) Microsoft Corporation. All rights reserved.  
+>  
+>  Restore completed in 39.42 ms for C:\TDDT\HelloWorld\HelloWorld\HelloWorld.csproj.  
+>  Restore completed in 49.56 ms for C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj.  
+>  HelloWorld -> C:\TDDT\HelloWorld\HelloWorld\bin\Debug\netstandard2.0\HelloWorld.dll  
+>GreeterTests.cs(3,6): error CS0246: The type or namespace name 'TestFixtureAttribute' could not be found (are you missing a using directive or an assembly reference?)[C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(3,6): error CS0246: The type or namespace name 'TestFixture' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(6,10): error CS0246: The type or namespace name 'TestAttribute' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(6,10): error CS0246: The type or namespace name 'Test' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>  
+>Build FAILED.  
+>  
+>GreeterTests.cs(3,6): error CS0246: The type or namespace name 'TestFixtureAttribute' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(3,6): error CS0246: The type or namespace name 'TestFixture' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(6,10): error CS0246: The type or namespace name 'TestAttribute' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>GreeterTests.cs(6,10): error CS0246: The type or namespace name 'Test' could not be found (are you missing a using directive or an assembly reference?) [C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj]  
+>    0 Warning(s)  
+>    4 Error(s)  
+>  
+>Time Elapsed 00:00:02.01
+
+Read carefully through the output. The compiler clearly tells what problems it found and in which files. That's a common sight and frequently a good starting point is copy a single line with the problem you don't understand, remove the file path and google it.
+
+Also if you hover over the sgwigly red line VS Code will offer some additional description of the problem and sometimes a possible solution. 
+
+<!-- TODO: describe problems tab, yello bulp and ctrl+.-->
+
+ Solve the problems by adding `using NUnit.Framework;` inside the namespace. (It can be at the top of the file, option which perhaps is more common, but having it inside the namespace has its own benefits too).
+
+Build again
+
+__Command:__
+```powershell
+dotnet build
+```
+
+__Expected Output:__
+>PS C:\TDDT\HelloWorld> dotnet build  
+>Microsoft (R) Build Engine version 15.8.166+gd4e8d81a88 for .NET Core  
+>Copyright (C) Microsoft Corporation. All rights reserved.  
+>  
+>  Restore completed in 28.67 ms for C:\TDDT\HelloWorld\HelloWorld\HelloWorld.csproj.  
+>  Restore completed in 38.41 ms for   C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj.  
+>  HelloWorld -> C:\TDDT\HelloWorld\HelloWorld\bin\Debug\netstandard2.0\HelloWorld.dll  
+>  HelloWorld.Tests -> C:\TDDT\HelloWorld\HelloWorld.Tests\bin\Debug\netcoreapp2.0\HelloWorld.Tests.dll  
+>  
+>Build succeeded.  
+>    0 Warning(s)  
+>    0 Error(s)  
+>  
+>Time Elapsed 00:00:01.12
+
+and now test
+
+__Command:__
+```powershell 
+dotnet test HelloWorld.Tests
+```
+
+__Expected Output:__
+>PS C:\TDDT\HelloWorld> dotnet test .\HelloWorld.Tests\  
+>Build started, please wait...  
+>Build completed.  
+>  
+>Test run for C:\TDDT\HelloWorld\HelloWorld.Tests\bin\Debug\netcoreapp2.0\HelloWorld.Tests.dll(.NETCoreApp,Version=v2.0)  
+>Microsoft (R) Test Execution Command Line Tool Version 15.8.0  
+>Copyright (c) Microsoft Corporation.  All rights reserved.  
+>
+>Starting test execution, please wait...  
+>Failed   say_hello  
+>Error Message:  
+> not implemented  
+>Stack Trace:  
+>   at HelloWorld.Tests.GreeterShould.says_hello() in C:\TDDT\HelloWorld\HelloWorld.Tests\GreeterTests.cs:line 10   
+>
+>
+>Total tests: 1. Passed: 0. Failed: 1. Skipped: 0.  
+>Test Run Failed.  
+>Test execution time: 1.3486 Seconds  
+
+you can see that `say_hello` test failed with message `not implemented`, and that it happened in `GreeterTests.cs` file on line 10. (Try clicking the filename while holiding CTRL key).
+
+The test fails (as it is supposed to do), but the solution builds and the tests execute successfuly. In a sence you have your first computer program already. 
+
+<!-- TODO: explain semicolon and strings -->
+
+## 8. Create first Greeter Test
+
+```cs
+[Test]
+public void say_hello() {
+    // arrange
+    var greeter = new Greeter();
+    // act
+    var greeting = greeter.SayHello();
+    // assert
+    Assert.IsTrue(greeting.StartsWith("Hello "));
+}
+```
+
