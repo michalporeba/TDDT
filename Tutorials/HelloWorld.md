@@ -54,7 +54,7 @@ It is worth reading more about git, but at the moment we will only the basics wh
 Next we will need to create a solution for the projects. Solution is a logical grouping of projects defined in a *.sln file and a project is a collection of files with code and other assets that get compiled into an executable or a library. It is an important part of the initial setup as we will be developing multiple projects at the same time. The easiest way to do so is using `dotnet` command. 
 
 <!-- TODO: explain why a folder, and that it needs to be created -->
-Navigate to C:\TDDT in the terminal and execute
+Navigate to `C:\TDDT\HelloWorld` in the terminal and execute
 
 __Command:__
 ```powershell
