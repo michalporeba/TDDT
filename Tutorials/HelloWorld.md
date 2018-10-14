@@ -374,7 +374,6 @@ We will need a `Greeter` object defined in `Greeter.cs` file in the `HelloWorld`
 
 Create `GreaterShould.cs` file
 
-<!-- TODO: Screenshot with GreeterShould -->
 ![Create First Test](./Images/HelloWorld.UnitTests1.png)
 
 Open the `GreeterShould.cs` file and define the namespace for our test class. Namespace could be called just about anything but by convention it should match the folder structure we put in place so in hour case `HelloWorld.Tests`.
@@ -457,7 +456,7 @@ namespace HelloWorld.Tests
 }
 ```
 
-Notice that the attributes as well as the `Assert` have a sgwigly red line underneath them. That is the way in which the IDE (VS Code) tells you that something is not right with the code, that the words you used are not recognised in this case. That is because those words are specific to NUnit, not the core C#. To make them available you need to let the compiler know to _import_ a namespace, for those three the `NUnit.Framework` namespace. Save the file and try to building the solution with `dotnet build` and you will see the build fail.
+Notice that the attributes as well as the `Assert` have a squiiggly red line underneath them. That is the way in which the IDE (VS Code) tells you that something is not right with the code, that the words you used are not recognised in this case. That is because those words are specific to NUnit, not the core C#. To make them available you need to let the compiler know to _import_ a namespace, for those three the `NUnit.Framework` namespace. Save the file and try to building the solution with `dotnet build` and you will see the build fail.
 
 __Command:__
 ```powershell
@@ -490,9 +489,7 @@ __Expected Output:__
 
 Read carefully through the output. The compiler clearly tells what problems it found and in which files. That's a common sight and frequently a good starting point is copy a single line with the problem you don't understand, remove the file path and google it.
 
-Also if you hover over the sgwigly red line VS Code will offer some additional description of the problem and sometimes a possible solution. 
-
-<!-- TODO: describe problems tab, yello bulp and ctrl+.-->
+There are many ways to find and solve problems with code. If you hover over the squiggly red line VS Code will offer some additional description of the problem and sometimes a possible solution. If your cursor is on the underlined problem you can press `[Ctrl+,]` or click the yellow bulb that appears at the beginning of the line.
 
  Solve the problems by adding `using NUnit.Framework;` inside the namespace. (It can be at the top of the file, option which perhaps is more common, but having it inside the namespace has its own benefits too).
 
@@ -551,13 +548,26 @@ you can see that `say_hello` test failed with message `not implemented`, and tha
 
 The test fails (as it is supposed to do), but the solution builds and the tests execute successfuly. In a sence you have your first computer program already. 
 
-<!-- TODO: explain semicolon and strings -->
+There are few more things to note in that one line of code with the failing assertion: 
+
+```cs
+Assert.Fail("not implemented");
+```
+
+* `Assert` is a name of a class and not an object. We reference objects using variables and those typically start with lowercase letters. Assert it a class with no instance so we refer to it using its class name, typically starting with a capital letter
+* `.` after `Assert` allows us to access _properties_ or _methods_ of an object or a class. 
+* `Fail` is a name of a public, static method of the `Assert` class. 
+* Static methods are methods of a class that can be accessed without an instance. 
+* `(` and `)` wrap the parameters passed to the `Fail` method. 
+* `"not implemented"` is a string parameter. Anything in double quotation marks `"` is a string of characters, in other words a piece of text which is not part of the programming language, rather something used by the program. 
+* `;` at the end of the line is important. It tells the compiler that a statement (a command to execute the Fail method) ends there. 
 
 ## 8. Create first Greeter Test
 
 ```cs
 [Test]
-public void say_hello() {
+public void say_hello() 
+{
     // arrange
     var greeter = new Greeter();
     // act
