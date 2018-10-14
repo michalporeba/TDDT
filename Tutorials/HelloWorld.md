@@ -619,4 +619,4 @@ public void say_hello()
 
 Here is how the code editor should look right now: 
 
-![Test Fixture](.\Images\HelloWorld.TestFixtureWithTest.png)
+![Test Fixture](./Images/HelloWorld.TestFixtureWithTest.png)
