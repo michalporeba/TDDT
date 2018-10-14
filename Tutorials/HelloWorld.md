@@ -564,6 +564,46 @@ Assert.Fail("not implemented");
 
 ## 8. Create first Greeter Test
 
+Now to the first actual test. Tests are typically split into three parts following the AAA Pattern. Arrange, Act and Assert. What it means we need to arrange things first, set the initial state. Then we act, perform the action we want to test and finally we Assert, make sure that the action had the expected effect. 
+
+### Arrange 
+
+For the first test we need to have an instance of the `Greeter` object. Of course we haven't defined it yet, but that's fine, in TDD we can imagine the objects and their method calls before we actually defin them. So we will assume there will be some Greeter class with a default constructor which we can instantiate by calling `new Greeter()`. We will also need to define a variable called `greeter` that will hold a reference to that new object. Finally the variable has to be defined with a type. It is perfectly possible to specify the exact type `Greeter` when the full line of code would look like so:
+
+```cs
+Greeter greeter = new Greeter();
+```
+
+If you read it from the right to left you could say: Execute (`()`) the `Greeter` type constructor (`new`) and assign it (`=`) to a `greeter` variable of type `Greeter`. You will notice the `Greeter` word with capital `G` is used twice. That's the older style which you can still frequently see, but new advise is to us an [_implicit type_](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/var) with keyword `var`. Implicit means that we don't have to specify the type explicitly in places where the compiler can infer the type from the rest of the statement. The line becomes: 
+
+```cs
+var greeter = new Greeter();
+```
+
+If you read it from the right to left now you can say: Execute (`()`) the `Greeter` type constructor (`new`) and assign it (`=`) to a `greeter` variable of a suitable type (`var`).
+
+### Act 
+
+Now since we have the instance of the object already we can act. Let's imagine the `Greeter` class will have a `SayHello()` method which will return the greeting. As part of the _Act_ part of the test we will execute that method and save the result to `greeting` variable 
+
+```cs
+var greeting = greeter.SayHello();
+```
+
+Reading from the right again: Execute the `SayHello()` method on the object referenced by the `greeter` variable and assign the result to the greeting variable using the suitable type. 
+
+At this point the `greeting` variable should have whatever `SayHello()` method produced. 
+
+### Assert
+
+The last step is to assert that the greeting returned is correct. To assert things in NUnit is to use statis methods on the `Assert` class. There is many methods, here we will use `IsTrue` which checks if a specific expression is true or not. 
+
+```cs
+Assert.IsTrue(greeting.StartsWith("Hello "));
+```
+
+Reading from right to left and from inside the parenthasis out: Check if "Hello " is what greeter string starts with, and assert that it is true. 
+
 ```cs
 [Test]
 public void say_hello() 
@@ -577,3 +617,6 @@ public void say_hello()
 }
 ```
 
+Here is how the code editor should look right now: 
+
+![Test Fixture](.\Images\HelloWorld.TestFixtureWithTest.png)
