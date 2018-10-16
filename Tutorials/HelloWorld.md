@@ -620,3 +620,120 @@ public void say_hello()
 Here is how the code editor should look right now: 
 
 ![Test Fixture](./Images/HelloWorld.TestFixtureWithTest.png)
+
+## 9. Implement the Greeter
+
+So we have a failing test. The test expects to have a class named `Greeter` which has a method called `SayHello()` which returns a string that starts with "Hello ". That class has to be defined and we will define it in the `HelloWorld` project. 
+
+Rename the `Class1.cs` file in the `HelloWorld` folder to `Greeter.cs`. In the file remove the `using System;` statement. We don't need it just yet. Rename the class to `Greeter`. 
+
+Define the `SayHello()` as a public method returning string. The syntax is `<Access Modifier> <Return Type> <Name>()`. 
+
+The `Greeter.cs` file should look like this: 
+```cs
+namespace HelloWorld 
+{
+    public class Greeter
+    {
+        public string SayHello() 
+        {
+        }
+    }
+}
+```
+
+The `SayHello()` method is underlined. If you hover over it you will see message `'Greeter.SayHello()': not all code paths return a value [HelloWorld]` and if you try to build you will get the same error. 
+
+__Command:__
+```powershell
+dotnet build
+```
+
+__Expected Output:__
+>PS C:\TDDT\HelloWorld> dotnet build  
+>Microsoft (R) Build Engine version 15.8.166+gd4e8d81a88 for .NET Core  
+>Copyright (C) Microsoft Corporation. All rights reserved.  
+>
+>  Restore completed in 27.8 ms for C:\TDDT\HelloWorld\HelloWorld\HelloWorld.csproj.  
+>  Restore completed in 32.85 ms for C:\TDDT\HelloWorld\HelloWorld.Tests\HelloWorld.Tests.csproj.  
+>Greeter.cs(5,23): error CS0161: 'Greeter.SayHello()': not all code paths return a value [C:\TDDT\HelloWorld\HelloWorld\HelloWorld.csproj]  
+>
+>Build FAILED.  
+>
+>Greeter.cs(5,23): error CS0161: 'Greeter.SayHello()': not all code paths return a value [C:\TDDT\HelloWorld\HelloWorld\HelloWorld.csproj]  
+>    0 Warning(s)  
+>    1 Error(s)  
+>  
+>Time Elapsed 00:00:00.79
+
+This is the compiler complaining that the code doesn't make sense. The method is defined as returning a `string` but it doesn't return anything. In fact it is completely empty. 
+
+A method can have any number of statements inside it's body (inside the `{}`) but if it's return type is not `void` it needs to return a value at the end. To return the value we use the `return` keyword and return an empty string `string.Empty`. 
+
+The `Greeter.cs` file should look like this: 
+```cs
+namespace HelloWorld 
+{
+    public class Greeter
+    {
+        public string SayHello() 
+        {
+            return string.Empty;
+        }
+    }
+}
+```
+
+Save and build. We are back to the problem in the `GreeterShould.cs` file. `The type or namespace name 'Greeter' could not be found (are you missing a using directive or an assembly reference?)`. How is that possible? We have just defined the Greeter! 
+
+That is true, the `Greeter` has been defined but in `HelloWorld` namespace. Unit test is, as it should be, in `HelloWorld.Tests` namespace. As I explained earlier the namespace defines scope so if in the `GreeterShould.cs` file we call `new Greeter()` from inside `namespace HelloWorld.Tests {}` the compiler will try to find an object which full name is `HelloWorld.Tests.Greeter` and this has not been defined. To solve this problem add a using statement in `GreeterShould.cs` to let compiler know that it should also use the `HelloWorld` namespace. 
+
+__File `GreeterShould.cs` should start with:__
+```cs
+namespace HelloWorld.Tests
+{
+    using NUnit.Framework;
+    using HelloWorld;
+```
+
+Save and build. This time the build should succeed. 
+Now run the tests. 
+
+__Command:__
+```powershell
+dotnet test HelloWorld.Tests
+```
+
+and the test fails with a message that 
+>Expected: true  
+>But was: false
+
+and stack trace pointing to 
+
+>HelloWorld.Tests.GreeterShould.say_hello() in C:\TDDT\HelloWorld\HelloWorld.Tests\GreeterShould.cs:line 17
+
+That is the output of the `Assert.IsTrue(...)` statement from line 17. The value stored in the `greeting` variable that was returned from SayHello() does not start with `Hello`. 
+
+Go back to `Greeter.cs` and instead of returning an empty string return the expected string `Hello World`. 
+
+```cs
+return "Hello World";
+```
+
+Save and test again. 
+
+>PS C:\TDDT\HelloWorld> dotnet test .\HelloWorld.Tests\  
+>Build started, please wait...  
+>Build completed.  
+>  
+>Test run for   >C:\TDDT\HelloWorld\HelloWorld.Tests\bin\Debug\netcoreapp2.0\HelloWorld.>Tests.dll(.NETCoreApp,Version=v2.0)  
+>Microsoft (R) Test Execution Command Line Tool Version 15.8.0  
+>Copyright (c) Microsoft Corporation.  All rights reserved.  
+>  
+>Starting test execution, please wait...  
+>  
+>Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.  
+>Test Run Successful.  
+>Test execution time: 0.8047 Seconds
+
+**Test Run Successful**
